@@ -1,22 +1,54 @@
 package com.enaa.controller;
 
+import com.enaa.model.Student;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class StudentController {
+    private final List<Student> students = new ArrayList<>();
+    private int nextId = 1;
 
-    @RequestMapping(value = "/hello_world", method = RequestMethod.GET)
-    public String printHelloWorld(ModelMap modelMap){
-
-        // add attribute to load modelMap
-        modelMap.addAttribute("message",
-                "Hello World and Welcome to Spring MVC!");
-
-        // return the name of the file to be loaded "hello_world.jsp"
-        return "hello_world";
+    @PostConstruct
+    public void init() {
+        students.add(new Student(1, "chaimaa", "chaimaa@gmail.com", "060908776", "Beni Mellal"));
+        students.add(new Student(2, "imane", "imane@gmail.com", "060908775", "Agadir"));
     }
+
+    @RequestMapping(value = "/")
+    public String listPage(Model model) {
+        model.addAttribute("students", students);
+        return "studentsList";
+    }
+
+    @PostMapping("/saveStudent")
+    public String saveStudent(@ModelAttribute Student student) {
+        students.add(student);
+        return "redirect:/";
+    }
+    @PostMapping("/updateStudent")
+    public String updateStudent(@ModelAttribute Student updatedStudent) {
+        for (Student student : students) {
+            if (student.getId() == updatedStudent.getId()) {
+                student.setName(updatedStudent.getName());
+                student.setEmail(updatedStudent.getEmail());
+                student.setPhone(updatedStudent.getPhone());
+                student.setAddress(updatedStudent.getAddress());
+                break;
+            }
+        }
+        return "redirect:/";
+    }
+    @PostMapping("/deleteStudent")
+    public String deleteStudent(@RequestParam("id") int id) {
+        students.removeIf(student -> student.getId() == id);
+        return "redirect:/";
+    }
+
 
 }
