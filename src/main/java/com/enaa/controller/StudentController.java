@@ -20,7 +20,10 @@ public class StudentController {
         students.add(new Student(idCounter++, "Ilham Jalal", "jalalilham55@gmail.com", "0722923404", "Kasba Tadla","https://i.pinimg.com/564x/e5/ce/13/e5ce137b596d1d1c5d7b3e1ffda0a17f.jpg"));
         students.add(new Student(idCounter++, "Imane Bahy", "bahyimane91@gmail.com", "0678573670", "Azilal","https://i.pinimg.com/564x/e5/ce/13/e5ce137b596d1d1c5d7b3e1ffda0a17f.jpg"));
     }
-
+    @GetMapping("/")
+    public String welcomePage() {
+        return "welcome";
+    }
     @GetMapping("/students")
     public String listPage(Model model) {
         model.addAttribute("students", students);
