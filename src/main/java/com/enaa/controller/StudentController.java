@@ -13,31 +13,44 @@ import java.util.List;
 @Controller
 public class StudentController {
     private final List<Student> students = new ArrayList<>();
-    private int nextId = 1;
+    private int idCounter = 1;
 
     @PostConstruct
     public void init() {
-        students.add(new Student(1, "chaimaa", "chaimaa@gmail.com", "060908776", "Beni Mellal","https://i.pinimg.com/564x/e5/ce/13/e5ce137b596d1d1c5d7b3e1ffda0a17f.jpg"));
-        students.add(new Student(2, "imane", "imane@gmail.com", "060908775", "Agadir","https://i.pinimg.com/564x/e5/ce/13/e5ce137b596d1d1c5d7b3e1ffda0a17f.jpg"));
+        students.add(new Student(idCounter++, "Ilham Jalal", "jalalilham55@gmail.com", "0722923404", "Kasba Tadla","https://i.pinimg.com/564x/e5/ce/13/e5ce137b596d1d1c5d7b3e1ffda0a17f.jpg"));
+        students.add(new Student(idCounter++, "Imane Bahy", "bahyimane91@gmail.com", "0678573670", "Azilal","https://i.pinimg.com/564x/e5/ce/13/e5ce137b596d1d1c5d7b3e1ffda0a17f.jpg"));
     }
 
-    @RequestMapping(value = "/students")
+    @GetMapping("/students")
     public String listPage(Model model) {
         model.addAttribute("students", students);
         return "studentsList";
     }
 
     @GetMapping("/saveStudent")
-    public String saveStudent(ModelMap modelMap) {
-        modelMap.addAttribute("students", new Student());
+    public String saveStudentForm(ModelMap modelMap) {
+        modelMap.addAttribute("student", new Student());
         return "AddStudent";
     }
 
     @PostMapping("/saveStudent")
     public String saveStudent(@ModelAttribute Student student) {
+        student.setId(idCounter++);
         students.add(student);
         return "redirect:/students";
     }
+
+    @GetMapping("/updateStudent/{id}")
+    public String updateStudentForm(@PathVariable("id") int id, Model model) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                model.addAttribute("student", student);
+                break;
+            }
+        }
+        return "UpdateStudent";
+    }
+
     @PostMapping("/updateStudent")
     public String updateStudent(@ModelAttribute Student updatedStudent) {
         for (Student student : students) {
@@ -50,13 +63,12 @@ public class StudentController {
                 break;
             }
         }
-        return "redirect:/";
+        return "redirect:/students";
     }
+
     @PostMapping("/deleteStudent")
     public String deleteStudent(@RequestParam("id") int id) {
         students.removeIf(student -> student.getId() == id);
         return "redirect:/students";
     }
-
-
 }

@@ -41,6 +41,10 @@
                 <input type="hidden" name="id" value="${student.id}">
                 <input type="submit" value="Supprimer">
             </form>
+            <form action="${pageContext.request.contextPath}/updateStudent/${student.id}" method="get">
+                <input type="submit" value="Modifier">
+            </form>
+
         </div>
     </div>
 </c:forEach>
@@ -48,22 +52,7 @@
 <h2>Ajouter un Étudiant</h2>
 <a href="${pageContext.request.contextPath}/saveStudent">add student</a>
 
-<h2>Modifier un Étudiant</h2>
-<form action="<c:url value='/updateStudent'/>" method="post">
-    <label for="updateId">ID:</label>
-    <input type="text" id="updateId" name="id" required><br>
-    <label for="updateName">Name:</label>
-    <input type="text" id="updateName" name="name" required><br>
-    <label for="updateEmail">Email:</label>
-    <input type="text" id="updateEmail" name="email" required><br>
-    <label for="updatePhone">Phone:</label>
-    <input type="text" id="updatePhone" name="phone" required><br>
-    <label for="updateAddress">Address:</label>
-    <input type="text" id="updateAddress" name="address" required><br>
-    <label for="updatePicture">Picture URL:</label>
-    <input type="text" id="updatePicture" name="picture" required><br>
-    <input type="submit" value="Modifier Étudiant">
-</form>
+
 
 
 </body>

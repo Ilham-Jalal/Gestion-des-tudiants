@@ -9,11 +9,10 @@ public class Student {
     private String address;
     private String picture;
 
-    // Constructeur par défaut
+
     public Student() {
     }
 
-    // Constructeur avec tous les champs
     public Student(int id, String name, String email, String phone, String address,String picture) {
         this.id = id;
         this.name = name;
@@ -31,7 +30,7 @@ public class Student {
         this.picture = picture;
     }
 
-    // Getters et setters
+
     public int getId() {
         return id;
     }
