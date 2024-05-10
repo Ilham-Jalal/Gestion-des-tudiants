@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <head>
     <title>Ajouter un étudiant</title>
     <style>
@@ -65,9 +66,62 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .navbar {
+            background: rgba(7, 7, 73, 0.7);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar ul li {
+            margin-right: 20px;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar ul li a i {
+            margin-right: 5px;
+        }
+
+        .navbar ul li a:hover {
+            color: #007bff;
+        }
+
     </style>
 </head>
 <body>
+<nav class="navbar" style="display: flex; justify-content: space-around">
+    <h1>Ajouter un etudiant</h1>
+    <ul>
+        <li><a href="http://localhost:8080/demostudent_war_exploded/"><i class="fas fa-home"></i> Accueil</a></li>
+        <li><a href="http://localhost:8080/demostudent_war_exploded/students"><i class="fas fa-list"></i> Liste des étudiants</a></li>
+        <li><a href="http://localhost:8080/demostudent_war_exploded/saveStudent"><i class="fas fa-plus-circle"></i> Ajouter étudiant</a></li>
+    </ul>
+</nav>
 <div class="container">
     <h2>Ajouter un Étudiant</h2>
     <form action="${pageContext.request.contextPath}/saveStudent" method="post">
